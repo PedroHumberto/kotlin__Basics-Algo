@@ -2,7 +2,7 @@
 class Data(val dia: Int, val mes: Int, val ano: Int)
 
 fun main(){
-    val data1 = Data(31, 12, 2023)
+    val data1 = Data(31, 12, 2024)
        testeData(data1)
 }
 
@@ -41,8 +41,10 @@ fun testeData(data: Data){
     while(mes <= data.mes){
         when(mes) {
             4, 6, 9, 11 -> dias = 30
-            2 -> dias = 28
-            0 -> dias = 0
+            //validação
+            2 -> if (bissexto) dias = 29
+                 else dias = 28
+            //fim validação
             else -> dias = 31
         }
             somaDias += dias
