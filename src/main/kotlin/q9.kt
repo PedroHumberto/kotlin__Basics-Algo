@@ -1,9 +1,8 @@
-
 class Data(val dia: Int, val mes: Int, val ano: Int)
 
 fun main(){
     val data1 = Data(31, 12, 2024)
-       testeData(data1)
+    testeData(data1)
 }
 
 fun testeData(data: Data){
@@ -31,9 +30,9 @@ fun testeData(data: Data){
         //consulta se é ou não bissexto
         2 -> if (bissexto){
             println("29 Dias")
-            }else {
-                println("28 Dias")
-            }
+        }else {
+            println("28 Dias")
+        }
         //fim da consulta
         else -> println("Tem 31 Dias")
     }
@@ -43,11 +42,11 @@ fun testeData(data: Data){
             4, 6, 9, 11 -> dias = 30
             //validação
             2 -> if (bissexto) dias = 29
-                 else dias = 28
+            else dias = 28
             //fim validação
             else -> dias = 31
         }
-            somaDias += dias
+        somaDias += dias
 
         mes++
     }
