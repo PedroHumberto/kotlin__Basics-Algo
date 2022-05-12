@@ -1,56 +1,74 @@
-class Data(val dia: Int, val mes: Int, val ano: Int)
+class Data(val dia: Int, val mes: Int, val ano: Int) {
+    var bissexto: Boolean = false
+    init {
+        if(ano % 4 == 0){
+            bissexto = true
+        }
+    }
+    init {
+        if (dia > 31 || mes > 12) {
+            throw AssertionError("Data Invalida")
+        }
+        if(mes == 2 && dia > 29){
+            throw AssertionError("Data Invalida")
+        }
+        if (!bissexto && dia > 28 && mes == 2){
+            throw AssertionError("Data Invalida")
+        }
+    }
 
+    fun anoBissexto() {
+        if (bissexto){
+            println("ano bissexto")
+        }
+        else{
+            println("Não é Bissexto")
+        }
+    }
+
+    fun qtDias(){
+        when(mes){
+            4,6,9,11 -> println("tem 30 Dias")
+            //consulta se é ou não bissexto
+            2 -> if (bissexto){
+                println("29 Dias")
+            }else {
+                println("28 Dias")
+            }
+            //fim da consulta
+            else -> println("Tem 31 Dias")
+        }
+    }
+    fun contagemDias(){
+        var dias: Int = 0
+        var somaDias: Int = 0
+        var contMes: Int = 1
+        while(contMes <= mes){
+            when(contMes) {
+                4, 6, 9, 11 -> dias = 30
+                //validação
+                2 -> if (bissexto) dias = 29
+                else dias = 28
+                //fim validação
+                else -> dias = 31
+            }
+            somaDias += dias
+
+            contMes++
+        }
+
+        var distanciaDias = somaDias - (dias - dia) - 1
+        println("A distancia entre o dia 01/01/$ano até a data selecionada é de: $distanciaDias dias")
+
+    }
+
+}
 fun main(){
     val data1 = Data(31, 12, 2024)
-    testeData(data1)
-}
 
-fun testeData(data: Data){
-    //validando as datas
-    if (data.mes == 2 && data.dia > 29) return println("DATA INVALIDA")
-    if (data.dia > 31 || data.mes > 12) return println("DATA INVALIDA")
+    data1.anoBissexto()
+    data1.qtDias()
+    data1.contagemDias()
 
-    var bissexto = false
-    var mes = 1
-    var dias = 0
-    var somaDias = 0
 
-    //A data se encontra em ano bissexto?
-    if(data.ano % 4 == 0){
-        bissexto = true
-        println("Esse ano é bissexto")
-    }else{
-        if (!bissexto && data.dia > 28 && data.mes == 2) return println("DATA INVALIDA") //validação para ano bissexto
-        println("Não é bissexto")
-
-    }
-    //Quantos dias têm o mês da data?
-    when(data.mes){
-        4,6,9,11 -> println("tem 30 Dias")
-        //consulta se é ou não bissexto
-        2 -> if (bissexto){
-            println("29 Dias")
-        }else {
-            println("28 Dias")
-        }
-        //fim da consulta
-        else -> println("Tem 31 Dias")
-    }
-    //Quantos dias existem entre o dia da data e o primeiro dia do ano inclusive?
-    while(mes <= data.mes){
-        when(mes) {
-            4, 6, 9, 11 -> dias = 30
-            //validação
-            2 -> if (bissexto) dias = 29
-            else dias = 28
-            //fim validação
-            else -> dias = 31
-        }
-        somaDias += dias
-
-        mes++
-    }
-
-    var distanciaDias = somaDias - (dias - data.dia) - 1
-    println("A distancia entre o dia primeiro até a data selecionada é de: $distanciaDias")
 }
